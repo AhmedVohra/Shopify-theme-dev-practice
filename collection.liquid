@@ -1,0 +1,22 @@
+{% for collection in collections %}
+
+<div>
+    {% comment %}
+    Use capture to put the collection title in a variable that is used in liquid filters
+    {% endcomment %}
+    {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+
+    <a href="{{ collection.url }}" title="{{ collection.title }}">
+        {% if collection.image %}
+        {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
+        {% else %}
+        {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
+        {% endif %}
+    </a>
+
+    <p>
+        <a href="{{ collection.url }}" title="{{collection.title }}">{{ collection.title }}</a><br>
+    </p>
+</div>
+
+{% endfor %}
